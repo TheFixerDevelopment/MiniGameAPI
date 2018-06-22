@@ -1,9 +1,7 @@
 <?php
 namespace minigameapi;
-
 use pocketmine\level\Position;
 use pocketmine\Player;
-
 abstract class Game {
 	const END_NORMAL = 0;
 	const END_NO_PLAYERS = 1;
@@ -21,7 +19,7 @@ abstract class Game {
 	private $plugin;
 	private $remainingWaitTime;
 	private $remainingRunTime;
-	public function __construct(Plugin $plugin, string $name,int $neededPlayers = 1,int $maxPlayers = 1, Time $runningTime = new Time(0,0,5), Time $waitingTime = new Time(0,30), ?Position $waitingRoom,) {
+	public function __construct(Plugin $plugin, string $name,int $neededPlayers = 1,int $maxPlayers = 1, Time $runningTime = new Time(0,0,5), Time $waitingTime = new Time(0,30), ?Position $waitingRoom) {
 		$this->plugin = $plugin;
 		$this->name = $name;
 		$this->neededPlayers = $neededPlayers;
@@ -45,6 +43,7 @@ abstract class Game {
 			$team = new Team($player->getName(), 1,1);
 			$team->addPlayer($player);
 			$this->submitTeam($team);
+		}
 		
 	}
 	public function broadcastMessage(string $message){
@@ -122,13 +121,20 @@ abstract class Game {
 	public function isWaiting() : bool {
 		return is_null($this->getRemainingWaitTime()) ? false : true;
 	}
-	public function onEnd(int $endCode) {};
-	public function onJoin() : bool{};
-	public function onStart() : bool{};
-	public function onWait() : bool{};
-	public function onWaiting() {};
-	public function onRunning() {};
-	public function onUpdate() {};
+	public function onEnd(int $endCode) {
+	}
+	public function onJoin(): bool {
+	}
+	public function onStart() : bool {
+	}
+	public function onWait() : bool {
+	}
+	public function onWaiting() {
+	}
+	public function onRunning() {
+	}
+	public function onUpdate() {
+	}
 	public function removePlayer(Player $player) {
 		foreach ($this->getPlayers() as $key => $pl) {
 			//$pl instanceof Player;
